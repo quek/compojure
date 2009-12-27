@@ -77,7 +77,7 @@
 (defn error-summary
   "Returns a summary of the errors on the form in HTML."
   []
-  (unordered-list (apply concat (vals *errors*))))
+  (unordered-list {:class "error"} (apply concat (vals *errors*))))
 
 (defn error-class
   "Decorator function that marks an input field with an error class if the

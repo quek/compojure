@@ -57,7 +57,7 @@
   "Wrap the supplied javascript up in script tags and a CDATA section."
   [script]
   [:script {:type "text/javascript"}
-    (str "//<![CDATA[\n" script "\n//]]>")])
+    [:raw "//<![CDATA[\n" script "\n//]]>"]])
 
 (defn link-to
   "Wraps some content in a HTML hyperlink with the supplied URL."
@@ -84,10 +84,14 @@
 
 (defn unordered-list
   "Wrap a collection in an unordered list"
-  [coll]
-  [:ul {}
-    (domap [x coll]
-      [:li x])])
+  ([attrs coll]
+     [:ul attrs
+      (domap [x coll]
+             [:li x])])
+  ([coll]
+     [:ul {}
+      (domap [x coll]
+             [:li x])]))
 
 (defn ordered-list
   "Wrap a collection in an unordered list"
