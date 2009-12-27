@@ -113,10 +113,12 @@
     (let [[tag attrs & body] (ensure-attrs tree)
           [tag attrs]        (parse-css-tag tag attrs)
           body               (expand-seqs body)]
-      (if (or (seq body) (explicit-ending-tag? tag))
-        (create-tag tag attrs (apply html body))
-        (create-closed-tag tag attrs)))
-    (str tree)))
+      (if (= "raw" tag)
+        (apply str body)
+        (if (or (seq body) (explicit-ending-tag? tag))
+          (create-tag tag attrs (apply html body))
+          (create-closed-tag tag attrs))))
+    (str (escape-html tree))))
 
 (defn html
   "Format trees of vectors into a string of HTML."
