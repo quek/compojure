@@ -67,7 +67,7 @@
 (defn url-encode
   "Encodes a single string or sequence of key/value pairs."
   [string-or-map]
-  (let [enc #(URLEncoder/encode (str* %))]
+  (let [enc #(URLEncoder/encode (str* %) "UTF-8")]
     (if (string? string-or-map)
       (enc string-or-map)
       (str-join "&"
