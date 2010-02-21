@@ -8,10 +8,10 @@
 
 (ns compojure.html.page-helpers
   "Functions for generating document and header boilerplate."
-  (:use compojure.control)
-  (:use compojure.html.gen)
-  (:use compojure.str-utils)
-  (:use clojure.contrib.str-utils)
+  (:use compojure.control
+        compojure.html.gen
+        compojure.str-utils
+        clojure.contrib.str-utils)
   (:import java.net.URLEncoder))
 
 (def doctype

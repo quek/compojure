@@ -8,10 +8,10 @@
 
 (ns compojure.http.middleware
   "Various middleware functions."
-  (:use compojure.http.routes)
-  (:use compojure.str-utils)
-  (:use clojure.contrib.def)
-  (:use clojure.contrib.str-utils))
+  (:use compojure.http.routes
+        compojure.str-utils
+        clojure.contrib.def
+        clojure.contrib.str-utils))
 
 (defn header-option
   "Converts a header option KeyValue into a string."
@@ -32,9 +32,9 @@
    existing headers."
   [handler headers]
   (fn [request]
-    (let [response (handler request)
-          merged-headers (merge (:headers response) headers)]
-      (assoc response :headers merged-headers))))
+    (if-let [response (handler request)]
+      (assoc response :headers
+             (merge (:headers response) headers)))))
 
 (defn with-cache-control
    "Middleware to set the Cache-Control http header. Map entries with boolean

@@ -1,8 +1,8 @@
-(ns test.compojure.http.helpers
-  (:use compojure.http.helpers)
-  (:use compojure.http.routes)
-  (:use compojure.control)
-  (:use clojure.contrib.test-is))
+(ns compojure.http.helpers-test
+  (:use compojure.http.helpers
+        compojure.http.routes
+        compojure.control
+        clojure.contrib.test-is))
 
 (deftest test-set-cookie
   (is (= (set-cookie :foo "bar")
@@ -17,5 +17,5 @@
          {:headers {"Content-Type" "text/html"}})))
 
 (deftest test-safe-path
-  (is (not (safe-path? "/home/compojure" "../private/secret.txt")))
-  (is (safe-path? "/home/compojure" "public/index.html")))
+  (is (not (safe-path? "/basedir/compojure" "../private/secret.txt")))
+  (is (safe-path? "/basedir/compojure" "public/index.html")))
